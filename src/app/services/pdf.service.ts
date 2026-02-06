@@ -65,11 +65,23 @@ export class PDFService {
     });
 
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
+    const bottomMargin = 20;
     const contentWidth = pageWidth - margin * 2;
 
     // Content positioning
     let y = 20;
+    const lineHeight = 6; // Standard line height for 11pt font
+
+    const checkPageBreak = (neededHeight: number) => {
+      if (y + neededHeight > pageHeight - bottomMargin) {
+        doc.addPage();
+        y = margin;
+        return true;
+      }
+      return false;
+    };
 
     // Title
     doc.setFontSize(22);
@@ -99,8 +111,13 @@ export class PDFService {
 
     // Description Content
     doc.setFontSize(11);
-    const splitDesc = doc.splitTextToSize(record.desc, contentWidth);
-    doc.text(splitDesc, margin, y);
+    const splitDesc: string[] = doc.splitTextToSize(record.desc, contentWidth);
+
+    splitDesc.forEach((line) => {
+      checkPageBreak(lineHeight);
+      doc.text(line, margin, y);
+      y += lineHeight;
+    });
 
     return doc;
   }
