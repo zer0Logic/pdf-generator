@@ -1,59 +1,72 @@
-# PdfGenerator
+# 📄 PDF Generator
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A Web application built with **Angular v21** to generate PDF reports.
 
-## Development server
+## ✨ Key Features
 
-To start a local development server, run:
+- **Dynamic PDF Generation**: High-quality PDF export using `jsPDF`.
+- **UI**: Built with Tailwind CSS 4, Lucide Icons, and container queries for a pixel-perfect experience.
 
-```bash
-ng serve
-```
+## 🛠️ Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Framework**: [Angular v21+](https://angular.dev/) (Standalone Components, Signals, Host Directives)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **PDF Engine**: [jsPDF](https://rawgit.com/MrRio/jsPDF/master/docs/index.html)
+- **State Management**: Angular Signals
+- **Notifications**: [ngx-sonner](https://github.com/maximelostan/ngx-sonner)
+- **Icons**: [Lucide Icons](https://lucide.dev/) (via `@ng-icons`)
 
-## Code scaffolding
+## 🚀 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Follow these steps to get the project up and running locally.
 
-```bash
-ng generate component component-name
-```
+### Prerequisites
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- [Node.js](https://nodejs.org/) (v20 or later recommended)
+- [npm](https://www.npmjs.com/) (v10 or later)
 
-```bash
-ng generate --help
-```
+### Installation
 
-## Building
+1. Clone the repository:
 
-To build the project run:
+   ```bash
+   git clone <repository-url>
+   cd pdf-generator
+   ```
 
-```bash
-ng build
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Development Server
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Start the local development server:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Additional Resources
+## 🏗️ Building for Production
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+To create an optimized production build:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## 🧪 Testing
+
+Run unit tests using [Vitest](https://vitest.dev/):
+
+```bash
+npm test
+```
+
+---
+
+_Made with ❤️ by Antigravity_

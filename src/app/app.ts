@@ -1,11 +1,14 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NgxSonnerToaster } from 'ngx-sonner';
+import { Header } from './components/layouts/header/header';
+import { FormSection } from './components/form-section/form-section';
+import { TableSection } from './components/table-section/table-section';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  imports: [Header, FormSection, TableSection, NgxSonnerToaster],
 })
 export class App {
   protected readonly title = signal('pdf-generator');

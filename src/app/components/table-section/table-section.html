@@ -1,0 +1,164 @@
+<section class="rounded-xl border border-stone-200 bg-white p-6">
+  <div class="mb-4 flex items-center justify-between">
+    <h1 class="text-xl font-bold">Daftar History Generate</h1>
+    @if (dataSource().length > 0) {
+      <button
+        (click)="onClearHistory()"
+        class="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+      >
+        Hapus Semua
+      </button>
+    }
+  </div>
+
+  <div class="mt-4 w-full overflow-x-auto rounded-lg border border-stone-200">
+    <table class="w-full border-collapse text-sm" cdk-table [dataSource]="dataSource()">
+      <!-- No Column -->
+      <ng-container cdkColumnDef="no">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          No.
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row; let i = index"
+          class="border-t border-stone-100 px-4 py-3 text-stone-600"
+        >
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+
+      <!-- Judul Column -->
+      <ng-container cdkColumnDef="title">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          Judul Laporan
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row"
+          class="border-t border-stone-100 px-4 py-3 font-medium text-stone-900"
+        >
+          <span class="inline-block max-w-[50ch]">{{ row.title }}</span
+          >s
+        </td>
+      </ng-container>
+
+      <!-- Page Size Column -->
+      <ng-container cdkColumnDef="pageSize">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          Page Size
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row"
+          class="border-t border-stone-100 px-4 py-3 text-stone-600"
+        >
+          <span class="rounded-md bg-stone-100 px-2 py-1 text-xs font-medium uppercase">{{
+            row.pageSize
+          }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Nominal Column -->
+      <ng-container cdkColumnDef="nominal">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          Nominal
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row"
+          class="border-t border-stone-100 px-4 py-3 text-stone-600"
+        >
+          {{ row.nominal | currency: 'IDR' : 'symbol-narrow' : '1.0-0' }}
+        </td>
+      </ng-container>
+
+      <!-- Dibuat Pada Column -->
+      <ng-container cdkColumnDef="createdAt">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          Dibuat Pada
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row"
+          class="border-t border-stone-100 px-4 py-3 text-xs text-nowrap text-stone-500"
+        >
+          {{ row.createdAt }}
+        </td>
+      </ng-container>
+
+      <!-- Aksi Column -->
+      <ng-container cdkColumnDef="actions">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          class="bg-stone-50 px-4 py-3 text-start font-semibold text-nowrap text-stone-600"
+        >
+          Aksi
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let row"
+          class="border-t border-stone-100 px-4 py-3 text-stone-600"
+        >
+          <div class="flex gap-2">
+            <button
+              (click)="onPreview(row)"
+              class="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-200 text-stone-600 transition-colors hover:bg-stone-50"
+              title="Preview"
+            >
+              <ng-icon name="lucideEye" size="16" />
+            </button>
+            <button
+              (click)="downloadPDF(row)"
+              class="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-200 text-stone-600 transition-colors hover:bg-stone-50"
+              title="Download"
+            >
+              <ng-icon name="lucideDownload" size="16" />
+            </button>
+            <button
+              (click)="onDelete(row)"
+              class="flex h-8 w-8 items-center justify-center rounded-lg border border-red-200 text-red-600 transition-colors hover:bg-red-50"
+              title="Hapus"
+            >
+              <ng-icon name="lucideTrash" size="16" />
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr
+        cdk-row
+        *cdkRowDef="let row; columns: displayedColumns"
+        class="transition-colors hover:bg-stone-50/50"
+      ></tr>
+
+      <!-- Correct *cdkNoDataRow usage -->
+      <tr *cdkNoDataRow>
+        <td colspan="6" class="h-16 border-t border-stone-100 text-center text-stone-400">
+          <p>Belum ada data.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
