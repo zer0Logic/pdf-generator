@@ -1,13 +1,8 @@
-# 📄 PDF Generator
+# PDF Generator
 
 A Web application built with **Angular v21** to generate PDF reports.
 
-## ✨ Key Features
-
-- **Dynamic PDF Generation**: High-quality PDF export using `jsPDF`.
-- **UI**: Built with Tailwind CSS 4, Lucide Icons, and container queries for a pixel-perfect experience.
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: [Angular v21+](https://angular.dev/) (Standalone Components, Signals, Host Directives)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
@@ -16,7 +11,7 @@ A Web application built with **Angular v21** to generate PDF reports.
 - **Notifications**: [ngx-sonner](https://github.com/maximelostan/ngx-sonner)
 - **Icons**: [Lucide Icons](https://lucide.dev/) (via `@ng-icons`)
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these steps to get the project up and running locally.
 
@@ -58,15 +53,3 @@ npm run build
 ```
 
 The build artifacts will be stored in the `dist/` directory.
-
-## 🧪 Testing
-
-Run unit tests using [Vitest](https://vitest.dev/):
-
-```bash
-npm test
-```
-
----
-
-_Made with ❤️ by Antigravity_
