@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, input, signal, inject, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  signal,
+  inject,
+  computed,
+  effect,
+  untracked,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith, of, merge } from 'rxjs';
@@ -55,11 +64,30 @@ export class TextareaComponent implements ControlValueAccessor {
     { initialValue: null },
   );
 
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+
+    // Sync local touched signal with NgControl (e.g., on form reset)
+    effect(() => {
+      this.status();
+      const ctrl = this.ngControl?.control;
+      if (ctrl && !ctrl.touched && !ctrl.dirty && this.touched()) {
+        untracked(() => this.touched.set(false));
+      }
+    });
+  }
+
   protected isInvalid = computed(() => {
+    const ctrl = this.ngControl?.control;
+    if (!ctrl || !ctrl.invalid) return false;
+
     this.status();
     this.value();
-    const isTouched = this.touched();
-    return !!(this.ngControl?.invalid && (isTouched || this.ngControl?.dirty));
+    const touched = this.touched();
+
+    return ctrl.dirty || ctrl.touched || touched;
   });
 
   protected errorMessage = computed(() => {
@@ -68,12 +96,6 @@ export class TextareaComponent implements ControlValueAccessor {
     this.touched();
     return getErrorMessage(this.ngControl?.errors, this.customErrors());
   });
-
-  constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
 
   writeValue(value: any): void {
     this.value.set(value);

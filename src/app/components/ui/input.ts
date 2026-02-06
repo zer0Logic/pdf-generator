@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, input, signal, inject, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  signal,
+  inject,
+  computed,
+  effect,
+  untracked,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith, of, merge } from 'rxjs';
@@ -84,11 +93,33 @@ export class InputComponent implements ControlValueAccessor {
     { initialValue: null },
   );
 
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+
+    // Sync local touched signal with NgControl (e.g., on form reset)
+    effect(() => {
+      this.status(); // Pulse
+      const ctrl = this.ngControl?.control;
+      // If control is reset, also reset our local touched "blur" intent
+      if (ctrl && !ctrl.touched && !ctrl.dirty && this.touched()) {
+        untracked(() => this.touched.set(false));
+      }
+    });
+  }
+
   protected isInvalid = computed(() => {
-    this.status(); // Track changes
-    this.value(); // Also track local value updates
-    const isTouched = this.touched();
-    return !!(this.ngControl?.invalid && (isTouched || this.ngControl?.dirty));
+    const ctrl = this.ngControl?.control;
+    if (!ctrl || !ctrl.invalid) return false;
+
+    // Dependencies to trigger re-calculation
+    this.status();
+    this.value();
+    const touched = this.touched();
+
+    // Show error if the control is dirty OR touched (locally or via NgControl)
+    return ctrl.dirty || ctrl.touched || touched;
   });
 
   protected errorMessage = computed(() => {
@@ -97,12 +128,6 @@ export class InputComponent implements ControlValueAccessor {
     this.touched(); // Ensure reactivity on blur
     return getErrorMessage(this.ngControl?.errors, this.customErrors());
   });
-
-  constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
 
   writeValue(value: any): void {
     const formatted = this.activeMask()?.format(value) ?? value ?? '';
