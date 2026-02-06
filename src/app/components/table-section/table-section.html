@@ -2,12 +2,9 @@
   <div class="mb-4 flex items-center justify-between">
     <h1 class="text-xl font-bold">Daftar History Generate</h1>
     @if (dataSource().length > 0) {
-      <button
-        (click)="onClearHistory()"
-        class="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
-      >
+      <app-button (click)="onClearHistory()" variant="outline" color="danger" size="sm">
         Hapus Semua
-      </button>
+      </app-button>
     }
   </div>
 
@@ -121,27 +118,33 @@
           class="border-t border-stone-100 px-4 py-3 text-stone-600"
         >
           <div class="flex gap-2">
-            <button
+            <app-button
               (click)="onPreview(row)"
-              class="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-200 text-stone-600 transition-colors hover:bg-stone-50"
+              variant="outline"
+              color="secondary"
+              size="icon-sm"
               title="Preview"
             >
               <ng-icon name="lucideEye" size="16" />
-            </button>
-            <button
+            </app-button>
+            <app-button
               (click)="downloadPDF(row)"
-              class="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-200 text-stone-600 transition-colors hover:bg-stone-50"
+              variant="outline"
+              color="secondary"
+              size="icon-sm"
               title="Download"
             >
               <ng-icon name="lucideDownload" size="16" />
-            </button>
-            <button
+            </app-button>
+            <app-button
               (click)="onDelete(row)"
-              class="flex h-8 w-8 items-center justify-center rounded-lg border border-red-200 text-red-600 transition-colors hover:bg-red-50"
+              variant="outline"
+              color="danger"
+              size="icon-sm"
               title="Hapus"
             >
               <ng-icon name="lucideTrash" size="16" />
-            </button>
+            </app-button>
           </div>
         </td>
       </ng-container>
@@ -149,8 +152,9 @@
       <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
       <tr
         cdk-row
-        *cdkRowDef="let row; columns: displayedColumns"
-        class="transition-colors hover:bg-stone-50/50"
+        *cdkRowDef="let row; columns: displayedColumns; let odd = odd"
+        class="transition-colors"
+        [class.bg-stone-50]="odd"
       ></tr>
 
       <!-- Correct *cdkNoDataRow usage -->

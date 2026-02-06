@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
+import { ButtonComponent } from './button';
 
 export interface ConfirmDialogData {
   title: string;
@@ -11,6 +12,7 @@ export interface ConfirmDialogData {
 
 @Component({
   selector: 'app-confirm-dialog',
+  imports: [ButtonComponent],
   template: `
     <div class="w-[min(90vw,420px)] rounded-xl bg-white p-6 shadow-2xl">
       <div class="mb-4 flex items-center gap-3">
@@ -43,19 +45,15 @@ export interface ConfirmDialogData {
       </p>
 
       <div class="flex justify-end gap-3">
-        <button
-          (click)="dialogRef.close(false)"
-          class="rounded-lg border border-stone-200 px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-50"
-        >
+        <app-button (click)="dialogRef.close(false)" variant="outline" color="secondary">
           {{ data.cancelText || 'Batal' }}
-        </button>
-        <button
+        </app-button>
+        <app-button
           (click)="dialogRef.close(true)"
-          [class]="variantClasses[data.variant || 'info'].buttonBg"
-          class="rounded-lg px-4 py-2 text-sm font-medium text-white transition-all active:scale-95"
+          [color]="data.variant === 'danger' ? 'danger' : 'primary'"
         >
           {{ data.confirmText || 'Ya, Lanjutkan' }}
-        </button>
+        </app-button>
       </div>
     </div>
   `,

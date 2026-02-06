@@ -4,11 +4,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PDFRecord } from '../../services/pdf.service';
 import { jsPDF } from 'jspdf';
 import { NgIcon, provideIcons } from '@ng-icons/core';
+import { ButtonComponent } from './button';
 import { lucideDownload, lucideX } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-pdf-preview',
-  imports: [NgIcon],
+  imports: [NgIcon, ButtonComponent],
   template: `
     <div
       class="flex h-[85vh] w-[90vw] max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl"
@@ -40,19 +41,13 @@ import { lucideDownload, lucideX } from '@ng-icons/lucide';
 
       <!-- Footer -->
       <div class="flex items-center justify-end gap-3 border-t border-stone-100 px-6 py-4">
-        <button
-          (click)="dialogRef.close()"
-          class="rounded-lg border border-stone-200 px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-50"
-        >
+        <app-button (click)="dialogRef.close()" variant="outline" color="secondary">
           Tutup
-        </button>
-        <button
-          (click)="download()"
-          class="flex items-center gap-2 rounded-lg bg-lime-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lime-700"
-        >
+        </app-button>
+        <app-button (click)="download()" color="primary" class="flex items-center gap-2">
           <ng-icon name="lucideDownload" size="16" />
           Download PDF
-        </button>
+        </app-button>
       </div>
     </div>
   `,

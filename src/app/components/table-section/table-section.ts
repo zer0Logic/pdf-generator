@@ -4,6 +4,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { PDFService, PDFRecord } from '../../services/pdf.service';
 import { PDFPreviewComponent } from '../ui/pdf-preview';
+import { ButtonComponent } from '../ui/button';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../ui/confirm-dialog';
 import { toast } from 'ngx-sonner';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -12,7 +13,7 @@ import { lucideDownload, lucideEye, lucideTrash } from '@ng-icons/lucide';
 @Component({
   selector: 'app-table-section',
   templateUrl: './table-section.html',
-  imports: [CdkTableModule, CurrencyPipe, DialogModule, NgIcon],
+  imports: [CdkTableModule, CurrencyPipe, DialogModule, NgIcon, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ lucideEye, lucideDownload, lucideTrash })],
 })

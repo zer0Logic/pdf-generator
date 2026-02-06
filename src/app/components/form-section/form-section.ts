@@ -3,12 +3,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from '../ui/input';
 import { SelectComponent } from '../ui/select';
 import { TextareaComponent } from '../ui/textarea';
+import { ButtonComponent } from '../ui/button';
 import { PDFService } from '../../services/pdf.service';
 import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-form-section',
-  imports: [ReactiveFormsModule, InputComponent, SelectComponent, TextareaComponent],
+  imports: [
+    ReactiveFormsModule,
+    InputComponent,
+    SelectComponent,
+    TextareaComponent,
+    ButtonComponent,
+  ],
   templateUrl: './form-section.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
